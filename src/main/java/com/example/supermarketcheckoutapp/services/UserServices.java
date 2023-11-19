@@ -1,6 +1,5 @@
 package com.example.supermarketcheckoutapp.services;
 
-import com.example.supermarketcheckoutapp.domains.Product;
 import com.example.supermarketcheckoutapp.domains.User;
 import com.example.supermarketcheckoutapp.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
