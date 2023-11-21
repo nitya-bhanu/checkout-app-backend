@@ -21,7 +21,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductServices {
     private final ProductRepository productRepository;
-    private final MongoTemplate mongoTemplate;
 
     public void postProduct(Product product){
         productRepository.save(product);

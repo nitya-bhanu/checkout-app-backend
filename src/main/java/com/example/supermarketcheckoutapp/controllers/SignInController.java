@@ -3,11 +3,13 @@ package com.example.supermarketcheckoutapp.controllers;
 import com.example.supermarketcheckoutapp.request.SignInRequest;
 import com.example.supermarketcheckoutapp.response.SignInResponse;
 import com.example.supermarketcheckoutapp.services.SignInServices;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/sign-in")
 public class SignInController {
 

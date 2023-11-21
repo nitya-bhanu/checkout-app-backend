@@ -15,10 +15,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-//implements UserDetailsService
 public class SignInServices{
-    @Autowired
-    UserRepository userRepository;
+
+    private final UserRepository userRepository;
 
     public SignInResponse getUser(SignInRequest signInRequest){
         User user=userRepository.findByfields(signInRequest.getUserId());
@@ -39,16 +38,4 @@ public class SignInServices{
         return signInResponse;
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Optional<User> user=userRepository.findById(emailId);
-//        if(user.isEmpty()){
-//            throw new UsernameNotFoundException("Email Id doesn't exist");
-//        }
-//        User user1=user.get();
-//        if(!user1.getPassword().equals(password)){
-//            throw new BadCredentialsException("Invalid Password");
-//        }
-//        return new UserInfoUserDetails(user1);
-//    }
 }

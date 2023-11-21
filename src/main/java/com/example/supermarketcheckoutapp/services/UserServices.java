@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserServices {
-    @Autowired
+
     private final UserRepository userRepository;
     public void createUser(User user){
         userRepository.save(user);

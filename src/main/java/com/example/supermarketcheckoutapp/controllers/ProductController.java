@@ -4,6 +4,7 @@ import com.example.supermarketcheckoutapp.domains.Product;
 import com.example.supermarketcheckoutapp.response.ProductPackageResponse;
 import com.example.supermarketcheckoutapp.response.ProductResponse;
 import com.example.supermarketcheckoutapp.services.ProductServices;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,14 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/product")
-
 public class ProductController {
 
-    @Autowired
-    ProductServices productServices;
+    private final ProductServices productServices;
 
 
+    //posting the products for admin role
     @PostMapping("")
     public ResponseEntity<ProductResponse> postProduct(@RequestBody Product product){
         ProductResponse productResponse=new ProductResponse();
@@ -34,6 +35,8 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(productResponse);
         }
     }
+
+    //getting all the products for every role
     @GetMapping("/{prodId}")
     public ResponseEntity<ProductPackageResponse<Product>> getProductsByID(@PathVariable String prodId){
         ProductPackageResponse<Product> productPackageResponse=new ProductPackageResponse<Product>();
@@ -49,6 +52,7 @@ public class ProductController {
         }
     }
 
+    //getting orders by several parameters
     @GetMapping(value = "",params = {"pageIndex","pageSize","sortDirection","criteriaName","searchQuery","categoryName"})
     public ResponseEntity<ProductPackageResponse<List<Product>>> getAllProducts(@RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "10") int pageSize, @RequestParam(defaultValue = "none") String sortDirection, @RequestParam(defaultValue = "title") String criteriaName, @RequestParam(required = false) String searchQuery, @RequestParam(required = false) String categoryName){
 
@@ -69,6 +73,7 @@ public class ProductController {
 
     }
 
+    //deleting the products for admin only
     @DeleteMapping("/{prodId}")
     public ResponseEntity<ProductResponse> deleteProductsByID(@PathVariable String prodId){
         ProductResponse productResponse=new ProductResponse();
@@ -83,6 +88,7 @@ public class ProductController {
         }
     }
 
+    //updating the products in database via prodId
     @PutMapping("/{prodId}")
     public ResponseEntity<ProductPackageResponse<Product>> updateProductsByID(@PathVariable String prodId,@RequestBody Product product){
         ProductPackageResponse<Product> productPackageResponse=new ProductPackageResponse<Product>() ;
