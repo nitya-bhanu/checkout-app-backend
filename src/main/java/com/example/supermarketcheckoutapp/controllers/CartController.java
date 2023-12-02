@@ -17,7 +17,8 @@ import java.util.Optional;
 public class CartController {
 
 
-    private final CartServices cartServices;
+    @Autowired
+    CartServices cartServices;
 
     //posting the cart data
     @PostMapping("")
