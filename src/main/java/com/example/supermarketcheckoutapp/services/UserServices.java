@@ -6,9 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class UserServices {
@@ -35,8 +36,26 @@ public class UserServices {
     }
 
     public String setUser(User user){
+        String hashedPassword=encryptPassword(user.getPassword());
+        user.setPassword(hashedPassword);
         userRepository.save(user);
         return "User Saved succesfully";
+    }
+    public String encryptPassword(String password){
+        try{
+            MessageDigest messageDigest=MessageDigest.getInstance("MD5");
+            messageDigest.update(password.getBytes());
+            byte[] hashedPassword=messageDigest.digest();
+            StringBuilder stringBuilder=new StringBuilder();
+            for(byte b:hashedPassword){
+                stringBuilder.append(String.format("%02x",b));
+            }
+            return stringBuilder.toString();
+        }
+        catch (NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public String setUserAsAdmin(String userID){
